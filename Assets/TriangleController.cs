@@ -10,6 +10,7 @@ public class TriangleController : MonoBehaviour
     int colorIndex = 0;
     int x = 0;
     bool isRotating = false;
+    int speed = 1;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -75,8 +76,21 @@ public class TriangleController : MonoBehaviour
 
         if (isRotating)
         {
-            tr.Rotate(0, 0, -45 * Time.deltaTime);
+            tr.Rotate(0, 0, -45 * Time.deltaTime * speed);
+            sr.color = Random.ColorHSV();
         }
 
+        // Mouse scroll wheel scaling
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        if (scrollInput > 0)
+        {
+            speed += 10;
+            print(speed);
+        }
+        else if (scrollInput < 0)
+        {
+            speed -= 10;
+            print(speed);
+        }
     }
 }
